@@ -267,8 +267,8 @@ class LinearRegressionTest(unittest.TestCase):
         res = LinearRegression.lstsq(proMatrix, volMatrix)
 
         # Compare if the values of the result are almost equal with the expected ones.
-        for row in xrange(len(exRes)):
-            for col in xrange(len(exRes[0])):
+        for row in range(len(exRes)):
+            for col in range(len(exRes[0])):
                 self.assertAlmostEqual(exRes[row][col], res.get_value(col, row), self.precision)
 
     def lstsq_value_error_test(self):

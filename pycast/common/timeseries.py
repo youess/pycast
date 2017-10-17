@@ -53,12 +53,12 @@ FusionMethods = {
 }
 
 # Interpolation methods that can be used for interpolation missing data points.
-from helper import linear_interpolation
+from .helper import linear_interpolation
 InterpolationMethods = {
     "linear": linear_interpolation
 }
 
-from pycastobject import PyCastObject
+from pycast.common.pycastobject import PyCastObject
 class TimeSeries(PyCastObject):
 
     """A TimeSeries instance stores all relevant data for a real world time series.
@@ -272,7 +272,7 @@ class TimeSeries(PyCastObject):
         orgTS  = self.sorted_timeseries()
         compTS = otherTimeSeries.sorted_timeseries()
 
-        for idx in xrange(len(orgTS)):
+        for idx in range(len(orgTS)):
             # compare the timestamp
             if orgTS[idx][0] != compTS[idx][0]:
                 return False
@@ -467,7 +467,7 @@ class TimeSeries(PyCastObject):
 
         buckethalfwidth = normalizationLevel / 2.0
         bucketstart     = start + buckethalfwidth
-        buckets         = [[bucketstart + idx * normalizationLevel] for idx in xrange(bucketcnt)]
+        buckets         = [[bucketstart + idx * normalizationLevel] for idx in range(bucketcnt)]
 
         # Step One: Populate buckets
         # Initialize the timeseries data iterators
@@ -475,7 +475,7 @@ class TimeSeries(PyCastObject):
         tsdEndIdx   = 0
         tsdlength   = len(self)
 
-        for idx in xrange(bucketcnt):
+        for idx in range(bucketcnt):
             # get the bucket to avoid multiple calls of buckets.__getitem__()
             bucket = buckets[idx]
 
@@ -499,7 +499,7 @@ class TimeSeries(PyCastObject):
         # Step Two: Fill missing buckets
         missingCount   = 0
         lastIdx        = 0
-        for idx in xrange(bucketcnt):
+        for idx in range(bucketcnt):
             # bucket is empty
             if 1 == len(buckets[idx]):
                 missingCount += 1
@@ -517,7 +517,7 @@ class TimeSeries(PyCastObject):
 
             # calculate and fill in missing values
             missingValues = interpolationMethod(buckets[lastIdx][1], buckets[idx][1], missingCount)
-            for idx2 in xrange(1, missingCount + 1):
+            for idx2 in range(1, missingCount + 1):
                 buckets[lastIdx + idx2].append(missingValues[idx2 - 1])
 
             lastIdx = idx
@@ -547,7 +547,7 @@ class TimeSeries(PyCastObject):
         """
         lastDistance = None
         distance     = None
-        for idx in xrange(len(self) - 1):
+        for idx in range(len(self) - 1):
             distance = self[idx+1][0] - self[idx][0]
 
             # first run
@@ -790,7 +790,7 @@ class MultiDimensionalTimeSeries(TimeSeries):
         orgTS  = self.sorted_timeseries()
         compTS = otherTimeSeries.sorted_timeseries()
 
-        for idx in xrange(len(orgTS)):
+        for idx in range(len(orgTS)):
             # compare the timestamp
             if orgTS[idx][0] != compTS[idx][0]:
                 return False

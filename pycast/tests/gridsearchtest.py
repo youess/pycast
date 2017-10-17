@@ -58,8 +58,8 @@ class GridSearchTest(unittest.TestCase):
         """Test the parameter generation function."""
         # initialize a correct result
         precision = 10**-2
-        values_one = [i * precision for i in xrange(1,100)]
-        values_two = [i * precision for i in xrange(201)]
+        values_one = [i * precision for i in range(1,100)]
+        values_two = [i * precision for i in range(201)]
 
         generator_one = GridSearch(SMAPE, precision=-2)._generate_next_parameter_value("parameter_one", self.bfm)
         generator_two = GridSearch(SMAPE, precision=-2)._generate_next_parameter_value("parameter_two", self.bfm)
@@ -70,11 +70,11 @@ class GridSearchTest(unittest.TestCase):
         assert len(values_one) == len(generated_one)
         assert len(values_two) == len(generated_two)
 
-        for idx in xrange(len(values_one)):
+        for idx in range(len(values_one)):
             value = str(values_one[idx])[:12]
             assert str(value) == str(generated_one[idx])[:len(value)]
 
-        for idx in xrange(len(values_two)):
+        for idx in range(len(values_two)):
             value = str(values_two[idx])[:12]
             assert str(value) == str(generated_two[idx])[:len(value)]
 
@@ -130,7 +130,7 @@ class GridSearchTest(unittest.TestCase):
         # manually select the best alpha
         self.timeSeries.normalize("second")
         results = []
-        for smoothingFactor in [alpha / 100.0 for alpha in xrange(1, 100)]:    # pragma: no cover
+        for smoothingFactor in [alpha / 100.0 for alpha in range(1, 100)]:    # pragma: no cover
             fm.set_parameter("smoothingFactor", smoothingFactor)
             resultTS = self.timeSeries.apply(fm)
             error = SMAPE()
@@ -178,7 +178,7 @@ class GridSearchTest(unittest.TestCase):
         # manually select the best alpha
         self.timeSeries.normalize("second")
         results = []
-        for smoothingFactor in [alpha / 100.0 for alpha in xrange(1, 100)]:    # pragma: no cover
+        for smoothingFactor in [alpha / 100.0 for alpha in range(1, 100)]:    # pragma: no cover
             fm.set_parameter("smoothingFactor", smoothingFactor)
             resultTS = self.timeSeries.apply(fm)
             error = SMAPE()

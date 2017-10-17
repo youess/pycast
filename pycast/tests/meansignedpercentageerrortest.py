@@ -46,7 +46,7 @@ class MeanSignedPercentageErrorTest(unittest.TestCase):
 
         mpe = MeanSignedPercentageError()
 
-        for i in xrange(len(self.dataOrg)):
+        for i in range(len(self.dataOrg)):
             calc_local_error = mpe.local_error([self.dataOrg[i]], [self.dataCalc[i]])
             if calc_local_error:
                 self.assertEquals("%.3f" % calc_local_error,"%.3f" % localErrors[i])
@@ -58,6 +58,6 @@ class MeanSignedPercentageErrorTest(unittest.TestCase):
 #        calValues = [24, 1.23, 342, 1.21, 4.112, 9.543, 3.54, -1, -5]
 
 #        mspe = MeanSignedPercentageError()
-#        for idx in xrange(len(orgValues)):
+#        for idx in range(len(orgValues)):
 #            res = (float(calValues[idx] - orgValues[idx])/orgValues[idx])*100 if orgValues[idx] else None
 #            self.assertEqual(str(res)[:6], str(mspe.local_error([orgValues[idx]], [calValues[idx]]))[:6])

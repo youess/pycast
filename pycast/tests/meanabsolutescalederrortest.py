@@ -153,7 +153,7 @@ class MeanAbsoluteScaledErrorTest(unittest.TestCase):
         # check for error calculation depending on a specific endpoint
         correctResult = [1.25, 0.625, 1.527, 1.458, 1.416, 1.319, 1.309, 1.25, 1.157, 1.125, "1.060", "1.180", 1.602, 1.547]
         percentage = 100.0 / len(correctResult) + 0.2
-        for errVal in xrange(14):
+        for errVal in range(14):
             endPercentage = percentage * (errVal + 1)
 
             # set maximum percentage
@@ -165,7 +165,7 @@ class MeanAbsoluteScaledErrorTest(unittest.TestCase):
 
             assert calcErr == correctRes
 
-        for errVal in xrange(14):
+        for errVal in range(14):
             endDate = dataOrg[errVal + 6][0]
 
             calcErr    = str(em.get_error(endDate=endDate))[:5]

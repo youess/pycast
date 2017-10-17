@@ -38,7 +38,7 @@ def linear_interpolation(first, last, steps):
     """
     result = []
 
-    for step in xrange(0, steps):
+    for step in range(0, steps):
         fpart = (steps - step) * first
         lpart = (step + 1)            * last
         value = (fpart + lpart) / float(steps + 1)

@@ -44,7 +44,7 @@ class MeanSignedDifferenceErrorTest(unittest.TestCase):
 
         msd = MeanSignedDifferenceError()
 
-        for i in xrange(len(self.dataOrg)):
+        for i in range(len(self.dataOrg)):
             calc_local_error = msd.local_error([self.dataOrg[i]], [self.dataCalc[i]])
             self.assertEquals("%.4f" % calc_local_error,"%.4f" % localErrors[i])
 
@@ -56,7 +56,7 @@ class MeanSignedDifferenceErrorTest(unittest.TestCase):
         tsOrg  = TimeSeries()
         tsCalc = TimeSeries()
 
-        for idx in xrange(len(self.dataOrg)):
+        for idx in range(len(self.dataOrg)):
             tsOrg.add_entry(float(idx),  self.dataOrg[idx])
             tsCalc.add_entry(float(idx), self.dataCalc[idx])
 

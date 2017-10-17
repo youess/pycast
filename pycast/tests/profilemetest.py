@@ -55,7 +55,7 @@ class ProfileMeDecoratorTest(unittest.TestCase):
             """
             sumUpTo = 1000
 
-            summedVals = sum(xrange(sumUpTo + 1))
+            summedVals = sum(range(sumUpTo + 1))
             easySum = (sumUpTo * (sumUpTo + 1)) / 2
 
             return easySum == summedVals
@@ -80,7 +80,7 @@ class ProfileMeDecoratorTest(unittest.TestCase):
             """
             sumUpTo = 1000
 
-            summedVals = sum(xrange(sumUpTo + 1))
+            summedVals = sum(range(sumUpTo + 1))
             easySum = (sumUpTo * (sumUpTo + 1)) / 2
 
             return easySum == summedVals
@@ -101,7 +101,7 @@ class ProfileMeDecoratorTest(unittest.TestCase):
             """StupidDocString"""
             sumUpTo = 1000
 
-            summedVals = sum(xrange(sumUpTo + 1))
+            summedVals = sum(range(sumUpTo + 1))
             easySum = (sumUpTo * (sumUpTo + 1)) / 2
 
             return easySum == summedVals

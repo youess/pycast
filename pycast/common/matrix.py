@@ -29,9 +29,9 @@ from numbers import Number
 from math import sqrt
 
 # imports from pycast
-from pycastobject import PyCastObject
-from decorators import optimized
-from timeseries import MultiDimensionalTimeSeries
+from .pycastobject import PyCastObject
+from .decorators import optimized
+from .timeseries import MultiDimensionalTimeSeries
 
 def sign(a, b):
     """Return a with the algebraic sign of b"""
@@ -95,19 +95,19 @@ class Matrix(PyCastObject):
         self._columns = columns
         self._rows = rows
         if oneDimArray is None:
-            self.matrix = [[0.0 for i in xrange(rows)] for j in xrange(columns)]
+            self.matrix = [[0.0 for i in range(rows)] for j in range(columns)]
         elif isOneDimArray:
             if len(oneDimArray) != columns * rows:
                 raise ValueError("""Size of array does not fit in Matrix
                     with %d rows and %d columns""" % (rows, columns))
             if rowBased:
                 self.matrix = []
-                for j in xrange(columns):
+                for j in range(columns):
                     self.matrix.append([])
-                    for i in xrange(rows):
+                    for i in range(rows):
                         self.matrix[j].append(oneDimArray[i * columns + j])
             else:
-                self.matrix = [[oneDimArray[j * rows + i] for i in xrange(rows)] for j in xrange(columns)]
+                self.matrix = [[oneDimArray[j * rows + i] for i in range(rows)] for j in range(columns)]
         else:
             self._initialize_with_array(oneDimArray, rowBased)
 
@@ -125,8 +125,8 @@ class Matrix(PyCastObject):
         # places before decimal place, places after decimal place +
         # decimal point, sign and one empty space.
         width = len(str(int(max_val))) + self._stringPrecision + 3
-        for row in xrange(self.get_height()):
-            for col in xrange(self.get_width()):
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
                 val = float(self.get_value(col, row))
                 rep += "{num: {width}.{prec}f}".format(num=val, width=width, prec=self._stringPrecision)
             rep += "\n"
@@ -157,9 +157,9 @@ class Matrix(PyCastObject):
             self.matrix = []
             if len(data) != self._rows:
                 raise ValueError("Size of Matrix does not match")
-            for col in xrange(self._columns):
+            for col in range(self._columns):
                 self.matrix.append([])
-                for row in xrange(self._rows):
+                for row in range(self._rows):
                     if len(data[row]) != self._columns:
                         raise ValueError("Size of Matrix does not match")
                     self.matrix[col].append(data[row][col])
@@ -189,10 +189,10 @@ class Matrix(PyCastObject):
         if isinstance(timeSeries, MultiDimensionalTimeSeries):
             width = timeSeries.dimension_count()
 
-        matrixData = [[] for dummy in xrange(width)]
+        matrixData = [[] for dummy in range(width)]
 
         for entry in timeSeries:
-            for col in xrange(1, len(entry)):
+            for col in range(1, len(entry)):
                 matrixData[col - 1].append(entry[col])
         if not matrixData[0]:
             raise ValueError("Cannot create Matrix from empty Timeseries")
@@ -243,9 +243,9 @@ class Matrix(PyCastObject):
         :rtype:     MultiDimensionalTimeSeries
         """
         ts = MultiDimensionalTimeSeries(dimensions=self.get_width())
-        for row in xrange(self.get_height()):
+        for row in range(self.get_height()):
             newEntry = []
-            for col in xrange(self.get_width()):
+            for col in range(self.get_width()):
                 newEntry.append(self.get_value(col, row))
             ts.add_entry(row, newEntry)
         return ts
@@ -263,9 +263,9 @@ class Matrix(PyCastObject):
         """
         if rowBased:
             array = []
-            for row in xrange(self._rows):
+            for row in range(self._rows):
                 newRow = []
-                for col in xrange(self._columns):
+                for col in range(self._columns):
                     newRow.append(self.get_value(col, row))
                 array.append(newRow)
             return array
@@ -296,7 +296,7 @@ class Matrix(PyCastObject):
         :param integer row:     The index for the row (starting at 0)
         :param numeric value:   The new value at the given column/row
 
-        :raise:     Raises an :py:exc:`IndexError` if the index is out of xrange.
+        :raise:     Raises an :py:exc:`IndexError` if the index is out of range.
         """
         self.matrix[column][row] = value
 
@@ -306,7 +306,7 @@ class Matrix(PyCastObject):
         :param integer column:  The index for the column (starting at 0)
         :param integer row:     The index for the row (starting at 0)
 
-        :raise:     Raises an :py:exc:`IndexError` if the index is out of xrange.
+        :raise:     Raises an :py:exc:`IndexError` if the index is out of range.
         """
         return self.matrix[column][row]
 
@@ -348,7 +348,7 @@ class Matrix(PyCastObject):
         appList = [0] * self._columns
 
         # add identity matrix to array in order to use gauss jordan algorithm
-        for col in xrange(self._columns):
+        for col in range(self._columns):
             mArray.append(appList[:])
             mArray[self._columns + col][col] = 1
         # create new Matrix and execute gass jordan algorithm
@@ -429,15 +429,15 @@ class Matrix(PyCastObject):
                 Use is_matrix_mult_possible(matrix) to test.
         """
         resultMatrix = Matrix(matrix.get_width(), self.get_height())
-        for r_row in xrange(self._rows):
-            for r_col in xrange(matrix.get_width()):
+        for r_row in range(self._rows):
+            for r_col in range(matrix.get_width()):
                 #blockwise matrix multiplication hack
                 if isinstance(self.get_array()[0][0], Matrix):
                     blocksize = self.get_array()[0][0].get_width()
                     valueT = Matrix(blocksize, blocksize)
                 else:
                     valueT = 0
-                for column in xrange(matrix.get_height()):
+                for column in range(matrix.get_height()):
                     valueT += self.get_value(column, r_row) * matrix.get_value(r_col, column)
                 resultMatrix.set_value(r_col, r_row, valueT)
         return resultMatrix
@@ -464,7 +464,7 @@ class Matrix(PyCastObject):
         blocksize = self.get_array()[0][0].get_width()
         width = self.get_width() * blocksize
 
-        columnsNew = [[] for dummy in xrange(width)]
+        columnsNew = [[] for dummy in range(width)]
 
         for row in self.get_array():
             index = 0
@@ -510,8 +510,8 @@ class Matrix(PyCastObject):
         :rtype:     Matrix
         """
         result = Matrix(self.get_width(), self.get_height())
-        for row in xrange(self.get_height()):
-            for col in xrange(self.get_width()):
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
                 result.set_value(col, row, self.get_value(col, row) * multiplicator)
         return result
 
@@ -545,23 +545,23 @@ class Matrix(PyCastObject):
             raise ValueError("""Not enough rows""")
         # Start with complete matrix and remove in each iteration
         # the first row and the first column
-        for offset in xrange(height):
+        for offset in range(height):
             # Switch lines, if current first value is 0
             if mArray[offset][offset] == 0:
-                for i in xrange(offset + 1, height):
+                for i in range(offset + 1, height):
                     if mArray[offset][i] != 0:
                         tmp = []
-                        for j in xrange(offset, width):
+                        for j in range(offset, width):
                             tmp.append(mArray[j][offset])
                         # tmp = mArray[offset][offset:]
-                        for j in xrange(offset, width):
+                        for j in range(offset, width):
                             mArray[j][offset] = mArray[j][i]
                             mArray[j][i] = tmp[j]
                         # mArray[offset][offset:] = mArray[i][offset:]
                         # mArray[i] = tmp
                         break
 
-            currentRow = [mArray[j][offset] for j in xrange(offset, width)]
+            currentRow = [mArray[j][offset] for j in range(offset, width)]
             devider = float(currentRow[0])
             # If no line is found with an value != 0
             # the matrix is not invertible
@@ -572,19 +572,19 @@ class Matrix(PyCastObject):
             for value in currentRow:
                 transformedRow.append(value / devider)
             # put transformed row back into matrix
-            for j in xrange(offset, width):
+            for j in range(offset, width):
                 mArray[j][offset] = transformedRow[j - offset]
             # subtract multiples of the current row, from all remaining rows
             # in order to become a 0 at the current first column
-            for i in xrange(offset + 1, height):
+            for i in range(offset + 1, height):
                 multi = mArray[offset][i]
-                for j in xrange(offset, width):
+                for j in range(offset, width):
                     mArray[j][i] = mArray[j][i] - mArray[j][offset] * multi
-        for i in xrange(1, height):
+        for i in range(1, height):
             # subtract multiples of the i-the row from all above rows
-            for j in xrange(0, i):
+            for j in range(0, i):
                 multi = mArray[i][j]
-                for col in xrange(i, width):
+                for col in range(i, width):
                     mArray[col][j] = mArray[col][j] - mArray[col][i] * multi
         self.matrix = mArray
         return self
@@ -602,8 +602,8 @@ class Matrix(PyCastObject):
         if self.get_height() != matrix.get_height() or self.get_width() != matrix.get_width():
             raise ValueError("Size of matrix does not match")
         result = Matrix(self.get_width(), self.get_height())
-        for row in xrange(self.get_height()):
-            for col in xrange(self.get_width()):
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
                 result.set_value(col, row, self.get_value(col, row) + matrix.get_value(col, row))
         return result
 
@@ -620,8 +620,8 @@ class Matrix(PyCastObject):
         if self.get_height() != matrix.get_height() or self.get_width() != matrix.get_width():
             raise ValueError("Size of matrix does not match")
         result = Matrix(self.get_width(), self.get_height())
-        for row in xrange(self.get_height()):
-            for col in xrange(self.get_width()):
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
                 result.set_value(col, row, self.get_value(col, row) - matrix.get_value(col, row))
         return result
 
@@ -634,8 +634,8 @@ class Matrix(PyCastObject):
         :rtype: Matrix
         """
         result = Matrix(self.get_width(), self.get_height())
-        for row in xrange(self.get_height()):
-            for col in xrange(self.get_width()):
+        for row in range(self.get_height()):
+            for col in range(self.get_width()):
                 result.set_value(col, row, self.get_value(col, row) / float(divider))
         return result
 
@@ -659,15 +659,15 @@ class Matrix(PyCastObject):
 
         # build identity matrix, which is used to calculate householder transformations
         identityMatrixRow = Matrix(self.get_height(), self.get_height())
-        for i in xrange(self.get_height()):
+        for i in range(self.get_height()):
             identityMatrixRow.set_value(i, i, 1.0)
 
         identityMatrixCol = Matrix(self.get_width(), self.get_width())
-        for i in xrange(self.get_width()):
+        for i in range(self.get_width()):
             identityMatrixCol.set_value(i, i, 1.0)
 
         # zero out the k'th column and row
-        for k in xrange(self.get_width() - 1):
+        for k in range(self.get_width() - 1):
             # vector with the values of the k'th column (first k-1 rows are 0)
             x = Vector(self.get_height())
             y = Vector(self.get_height())
@@ -675,7 +675,7 @@ class Matrix(PyCastObject):
                 x.set_value(0, k - 1, bidiagMatrix.get_value(k, k - 1))
                 y.set_value(0, k - 1, bidiagMatrix.get_value(k, k - 1))
             s = 0.0
-            for i in xrange(k, self.get_height()):
+            for i in range(k, self.get_height()):
                 val = bidiagMatrix.get_value(k, i)
                 x.set_value(0, i, val)
                 s += (val ** 2)
@@ -705,7 +705,7 @@ class Matrix(PyCastObject):
                 y.set_value(0, k, bidiagMatrix.get_value(k, k))
 
                 s = 0.0
-                for i in xrange(k + 1, bidiagMatrix.get_width()):
+                for i in range(k + 1, bidiagMatrix.get_width()):
                     val = bidiagMatrix.get_value(i, k)
                     x.set_value(0, i, val)
                     s += (val ** 2)
@@ -756,7 +756,7 @@ class Matrix(PyCastObject):
         n = len(a)
 
         v = []
-        for k in xrange(n):
+        for k in range(n):
             v.append([0.0] * n)
         # output diagonal
         w = [0.0] * n
@@ -767,13 +767,13 @@ class Matrix(PyCastObject):
         g = 0.0
         anorm = 0.0
 
-        for i in xrange(n):
+        for i in range(n):
             l = i + 1
             rv1[i] = g
 
             s = 0.0
             # calculate length of relevant row vector in matrix (part of i'th column)
-            s = sum(a[i][k] ** 2 for k in xrange(i, m))
+            s = sum(a[i][k] ** 2 for k in range(i, m))
             if s <= tol:
                 g = 0.0
             else:
@@ -782,15 +782,15 @@ class Matrix(PyCastObject):
                 g = sqrt(s) if f < 0 else -sqrt(s)
                 h = f * g - s
                 a[i][i] = f - g
-                for j in xrange(l, n):
-                    s = sum(a[i][k] * a[j][k] for k in xrange(i, m))
+                for j in range(l, n):
+                    s = sum(a[i][k] * a[j][k] for k in range(i, m))
                     f = s / h
-                    for k in xrange(i, m):
+                    for k in range(i, m):
                         a[j][k] += (f * a[i][k])
             w[i] = g
             # calculate length of relevant column vector in matrix (part of i'th row)
             s = 0.0
-            s = sum(a[k][i] ** 2 for k in xrange(l, n))
+            s = sum(a[k][i] ** 2 for k in range(l, n))
             if s <= tol:
                 g = 0.0
             else:
@@ -798,24 +798,24 @@ class Matrix(PyCastObject):
                 g = sqrt(s) if f < 0 else -sqrt(s)
                 h = f * g - s
                 a[l][i] = f - g
-                for k in xrange(l, n):
+                for k in range(l, n):
                     rv1[k] = a[k][i] / h
-                for j in xrange(l, m):
-                    s = sum(a[k][j] * a[k][i] for k in xrange(l, n))
-                    for k in xrange(l, n):
+                for j in range(l, m):
+                    s = sum(a[k][j] * a[k][i] for k in range(l, n))
+                    for k in range(l, n):
                         a[k][j] += (s * rv1[k])
             anorm = max(anorm, (abs(w[i]) + abs(rv1[i])))
 
         # Accumulation of right hand transformations
-        for i in xrange(n - 1, -1, -1):
+        for i in range(n - 1, -1, -1):
             if g != 0.0:
-                for j in xrange(l, n):
+                for j in range(l, n):
                     v[i][j] = a[j][i] / (g * a[i + 1][i])
-                for j in xrange(l, n):
-                    s = sum(a[k][i] * v[j][k] for k in xrange(l, n))
-                    for k in xrange(l, n):
+                for j in range(l, n):
+                    s = sum(a[k][i] * v[j][k] for k in range(l, n))
+                    for k in range(l, n):
                         v[j][k] += (s * v[i][k])
-            for j in xrange(l, n):
+            for j in range(l, n):
                 v[j][i] = 0.0
                 v[i][j] = 0.0
             v[i][i] = 1.0
@@ -823,21 +823,21 @@ class Matrix(PyCastObject):
             l = i
 
         # Accumulation of left hand transformations
-        for i in xrange(n - 1, -1, -1):
+        for i in range(n - 1, -1, -1):
             l = i + 1
             g = w[i]
-            for j in xrange(l, n):
+            for j in range(l, n):
                 a[j][i] = 0.0
             if g != 0.0:
-                for j in xrange(l, n):
-                    s = sum(a[i][k] * a[j][k] for k in xrange(l, m))
+                for j in range(l, n):
+                    s = sum(a[i][k] * a[j][k] for k in range(l, m))
                     f = s / (a[i][i] * g)
-                    for k in xrange(i, m):
+                    for k in range(i, m):
                         a[j][k] += f * a[i][k]
-                for j in xrange(i, m):
+                for j in range(i, m):
                     a[i][j] /= g
             else:
-                for j in xrange(i, m):
+                for j in range(i, m):
                     a[i][j] = 0.0
             a[i][i] += 1.0
 
@@ -845,9 +845,9 @@ class Matrix(PyCastObject):
 
         # Diagonalization of the bidiagonal form.
         # Loop over singular values and over allowed iterations
-        for k in xrange(n - 1, -1, -1):
-            for dummy in xrange(maxIteration):
-                for l in xrange(k, -1, -1):
+        for k in range(n - 1, -1, -1):
+            for dummy in range(maxIteration):
+                for l in range(k, -1, -1):
                     convergenceTest = False
                     if abs(rv1[l]) <= eps:
                         convergenceTest = True
@@ -859,7 +859,7 @@ class Matrix(PyCastObject):
                     c = 0.0
                     s = 1.0
                     nm = l - 1
-                    for i in xrange(l, k + 1):
+                    for i in range(l, k + 1):
                         f = s * rv1[i]
                         rv1[i] = c * rv1[i]
                         if abs(f) <= eps:
@@ -869,7 +869,7 @@ class Matrix(PyCastObject):
                         w[i] = h
                         c = g / h
                         s = -f / h
-                        for j in xrange(m):
+                        for j in range(m):
                             y = a[nm][j]
                             z = a[i][j]
                             a[nm][j] = (y * c) + (z * s)
@@ -879,7 +879,7 @@ class Matrix(PyCastObject):
                     # convergence
                     if z < 0.0:
                         w[k] = -z
-                        for j in xrange(n):
+                        for j in range(n):
                             v[k][j] = -v[k][j]
                     break
 
@@ -892,7 +892,7 @@ class Matrix(PyCastObject):
                 f = ((x - z) * (x + z) + h * ((y / (f + sign(g, f))) - h)) / x
                 c = 1.0
                 s = 1.0
-                for i in xrange(l + 1, k + 1):
+                for i in range(l + 1, k + 1):
                     g = rv1[i]
                     y = w[i]
                     h = s * g
@@ -905,7 +905,7 @@ class Matrix(PyCastObject):
                     g = -x * s + g * c
                     h = y * s
                     y = y * c
-                    for jj in xrange(n):
+                    for jj in range(n):
                         x = v[i - 1][jj]
                         z = v[i][jj]
                         v[i - 1][jj] = (x * c) + (z * s)
@@ -918,7 +918,7 @@ class Matrix(PyCastObject):
                         s = h * z
                     f = (c * g) + (s * y)
                     x = -s * g + c * y
-                    for jj in xrange(m):
+                    for jj in range(m):
                         y = a[i - 1][jj]
                         z = a[i][jj]
                         a[i - 1][jj] = (y * c) + (z * s)
@@ -930,7 +930,7 @@ class Matrix(PyCastObject):
         uM = Matrix.from_two_dim_array(len(a), len(a[0]), a)
 
         diagMatrix = Matrix(len(w), len(w))
-        for i in xrange(len(w)):
+        for i in range(len(w)):
             diagMatrix.set_value(i, i, w[i])
 
         vM = Matrix.from_two_dim_array(len(v), len(v[0]), v)
@@ -949,7 +949,7 @@ class Matrix(PyCastObject):
         else:
             u, sigma, v = self.svd()
         # calculate inverse of sigma
-        for i in xrange(min(sigma.get_height(), sigma.get_width())):
+        for i in range(min(sigma.get_height(), sigma.get_width())):
             val = sigma.get_value(i, i)
             # divide only if the value is not 0 or close to zero (rounding errors)
             eps = 1.e-15
@@ -980,7 +980,7 @@ class Vector(Matrix):
         :raise: Raises an :py:exc:`IndexError` if the matrix does not have the specified column.
         """
         vec = Vector(matrix.get_height())
-        for row in xrange(matrix.get_height()):
+        for row in range(matrix.get_height()):
             vec.set_value(0, row, matrix.get_value(column, row))
         return vec
 
@@ -999,6 +999,6 @@ class Vector(Matrix):
         :rtype: Vector
         """
         length = float(self.norm())
-        for row in xrange(self.get_height()):
+        for row in range(self.get_height()):
             self.set_value(0, row, self.get_value(0, row) / length)
         return self

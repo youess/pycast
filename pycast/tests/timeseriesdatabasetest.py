@@ -78,7 +78,7 @@ class DatabaseConnectorTest(unittest.TestCase):
         append = tuples.append
 
         # create the tuples
-        for item in xrange(numberOfTuples):
+        for item in range(numberOfTuples):
             timestamp += random.random()
             value     = random.random() * 1000
             junkOne   = random.random()

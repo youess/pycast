@@ -74,9 +74,9 @@ class MeanAbsoluteScaledError(BaseErrorMeasure):
         append        = historicMeans.append
 
         # not most optimized loop in case of calculation operations
-        for startIdx in xrange(len(timeSeries) - historyLength - 1):
+        for startIdx in range(len(timeSeries) - historyLength - 1):
             value = 0
-            for idx in xrange(startIdx, startIdx + historyLength):
+            for idx in range(startIdx, startIdx + historyLength):
                 value += abs(timeSeries[idx+1][1] - timeSeries[idx][1])
 
             append(value / float(historyLength))
@@ -120,7 +120,7 @@ class MeanAbsoluteScaledError(BaseErrorMeasure):
 
         # calculate all valid local errors
         for orgPair in originalTimeSeries[minCalcIdx:]:
-            for calcIdx in xrange(minCalcIdx, len(calculatedTimeSeries)):
+            for calcIdx in range(minCalcIdx, len(calculatedTimeSeries)):
                 calcPair = calculatedTimeSeries[calcIdx]
 
                 # Skip values that can not be compared
@@ -131,7 +131,7 @@ class MeanAbsoluteScaledError(BaseErrorMeasure):
                 appendDates(orgPair[0])
 
         # return False, if the error cannot be calculated
-        if len(filter(lambda item: item is not None, self._errorValues)) < self._minimalErrorCalculationPercentage * len(originalTimeSeries):
+        if len(list(filter(lambda item: item is not None, self._errorValues))) < self._minimalErrorCalculationPercentage * len(originalTimeSeries):
             self._errorValues = []
             self._errorDates = []
             self._historicMeans = []

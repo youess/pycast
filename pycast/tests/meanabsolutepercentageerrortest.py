@@ -46,7 +46,7 @@ class MeanAbsolutePercentageErrorTest(unittest.TestCase):
 
         mape = MeanAbsolutePercentageError()
 
-        for i in xrange(len(self.dataOrg)):
+        for i in range(len(self.dataOrg)):
             calc_local_error = mape.local_error([self.dataOrg[i]], [self.dataCalc[i]])
             if calc_local_error:
                 self.assertEquals("%.3f" % calc_local_error,"%.3f" % localErrors[i])
@@ -58,7 +58,7 @@ class MeanAbsolutePercentageErrorTest(unittest.TestCase):
         tsOrg  = TimeSeries()
         tsCalc = TimeSeries()
 
-        for idx in xrange(len(self.dataOrg)):
+        for idx in range(len(self.dataOrg)):
             tsOrg.add_entry(float(idx),  self.dataOrg[idx])
             tsCalc.add_entry(float(idx), self.dataCalc[idx])
 
@@ -73,7 +73,7 @@ class MeanAbsolutePercentageErrorTest(unittest.TestCase):
 #        calValues = [24, 1.23, 342, 1.21, 4.112, 9.543, 3.54]
 #
 #        mape = MeanAbsolutePercentageError()
-#        for idx in xrange(len(orgValues)):
+#        for idx in range(len(orgValues)):
 #            res = ((math.fabs(calValues[idx] - orgValues[idx]))/orgValues[idx])*100
 #            assert  str(res)[:6] == str(mape.local_error([orgValues[idx]], [calValues[idx]]))[:6]
 #

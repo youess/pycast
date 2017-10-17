@@ -83,7 +83,7 @@ class BaseErrorMeasure(PyCastObject):
 
         # calculate all valid local errors
         for orgPair in originalTimeSeries:
-            for calcIdx in xrange(minCalcIdx, len(calculatedTimeSeries)):
+            for calcIdx in range(minCalcIdx, len(calculatedTimeSeries)):
                 calcPair = calculatedTimeSeries[calcIdx]
 
                 # Skip values that can not be compared
@@ -94,7 +94,7 @@ class BaseErrorMeasure(PyCastObject):
                 appendDate(orgPair[0])
 
         # return False, if the error cannot be calculated
-        calculatedErrors    = len(filter(lambda item: item is not None, self._errorValues))
+        calculatedErrors    = len(list(filter(lambda item: item is not None, self._errorValues)))
         minCalculatedErrors = self._minimalErrorCalculationPercentage * len(originalTimeSeries)
 
         if  calculatedErrors < minCalculatedErrors:
@@ -260,7 +260,7 @@ class BaseErrorMeasure(PyCastObject):
         if overIdx >= 0:
             overestimation = overestimations[overIdx]
         else:
-            print len(overestimations), confidenceLevel
+            print(len(overestimations), confidenceLevel)
 
         if underIdx >= 0:
             underestimation = underestimations[underIdx]

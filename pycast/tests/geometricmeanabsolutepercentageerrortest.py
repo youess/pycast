@@ -39,7 +39,7 @@ class GeometricMeanAbsolutePercentageErrorTest(unittest.TestCase):
         calValues = [24, 1.23, 342, 1.21, 4.112, 9.543, 3.54]
 
         gmape = GeometricMeanAbsolutePercentageError()
-        for idx in xrange(len(orgValues)):
+        for idx in range(len(orgValues)):
             res = ((math.fabs(calValues[idx] - orgValues[idx]))/orgValues[idx])*100
             assert  str(res)[:6] == str(gmape.local_error([orgValues[idx]], [calValues[idx]]))[:6]
 

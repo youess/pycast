@@ -277,7 +277,7 @@ class MatrixTest(unittest.TestCase):
         # Changing entries of the timeseries, should not affect matrix
         row = 3
         ts[row] = [row, 4, 3, 1]
-        for col in xrange(cols):
+        for col in range(cols):
             self.assertEqual(mtrx.get_value(col, row), data[row][col])
 
     def matrix_string_representation_test(self):
@@ -315,7 +315,7 @@ class MatrixTest(unittest.TestCase):
         # change precision
         mtrx.set_string_precision(2)
         rep = mtrx.__str__()
-        print mtrx
+        print(mtrx)
         # should print the number with 2 digits after decimal point
         # numbers should be rounded
         self.assertTrue(rep.find(" 3.05 ") >= 0)
@@ -356,8 +356,8 @@ class MatrixTest(unittest.TestCase):
         matrix = Matrix(cols, rows)
         matrix.initialize(data, rowBased=True)
 
-        for row in xrange(rows):
-            for col in xrange(cols):
+        for row in range(rows):
+            for col in range(cols):
                 self.assertEqual(matrix.get_value(col, row), data[row][col])
 
     def get_matrix_from_list_test(self):

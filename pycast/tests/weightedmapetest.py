@@ -39,7 +39,7 @@ class WeightedMeanAbsolutePercentageErrorTest(unittest.TestCase):
         resValues = ['118.181', '192.567', '14769.5', '162.996', '193.319', '47.7990', '145.116']
 
         wmape = WeightedMeanAbsolutePercentageError()
-        for idx in xrange(len(orgValues)):
+        for idx in range(len(orgValues)):
             localError = wmape.local_error([orgValues[idx]], [calValues[idx]])
             assert str(resValues[idx]) == str(localError)[:7], str(resValues[idx]) + '!=' + str(localError)[:7]
 

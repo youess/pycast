@@ -87,7 +87,7 @@ class BaseErrorMeasureTest(unittest.TestCase):
         bem.initialize(tsOrg, tsCalc)
 
         # incorrect initialize call
-        for cnt in xrange(10):
+        for cnt in range(10):
             try:
                 bem.initialize(tsOrg, tsCalc)
             except StandardError:
@@ -161,7 +161,7 @@ class BaseErrorMeasureTest(unittest.TestCase):
 
         bem = BaseErrorMeasure()
 
-        for idx in xrange(len(tsOrg)):
+        for idx in range(len(tsOrg)):
             try:
                 bem.local_error([tsOrg[idx][1]], [tsCalc[idx][1]])
             except NotImplementedError:

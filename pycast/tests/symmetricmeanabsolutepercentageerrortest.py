@@ -47,7 +47,7 @@ class SymmetricMeanAbsolutePercentageErrorTest(unittest.TestCase):
 
         smape = SymmetricMeanAbsolutePercentageError()
 
-        for i in xrange(len(self.dataOrg)):
+        for i in range(len(self.dataOrg)):
             calc_local_error = smape.local_error([self.dataOrg[i]], [self.dataCalc[i]])
             self.assertEquals("%.3f" % calc_local_error,"%.3f" % localErrors[i])
 
@@ -56,7 +56,7 @@ class SymmetricMeanAbsolutePercentageErrorTest(unittest.TestCase):
         tsOrg  = TimeSeries()
         tsCalc = TimeSeries()
 
-        for idx in xrange(len(self.dataOrg)):
+        for idx in range(len(self.dataOrg)):
             tsOrg.add_entry(float(idx),  self.dataOrg[idx])
             tsCalc.add_entry(float(idx), self.dataCalc[idx])
 
@@ -73,7 +73,7 @@ class SymmetricMeanAbsolutePercentageErrorTest(unittest.TestCase):
 #
 #        smape = SymmetricMeanAbsolutePercentageError()
 #
-#        for idx in xrange(len(dataPtsOrg)):
+#        for idx in range(len(dataPtsOrg)):
 #            le = smape.local_error([dataPtsOrg[idx]], [dataPtsCalc[idx]])
 #            ple = localErrors[idx]
 #
@@ -88,7 +88,7 @@ class SymmetricMeanAbsolutePercentageErrorTest(unittest.TestCase):
 #        tsOrg  = TimeSeries()
 #        tsCalc = TimeSeries()
 #
-#        for idx in xrange(len(dataPtsOrg)):
+#        for idx in range(len(dataPtsOrg)):
 #            tsOrg.add_entry(float(idx),  dataPtsOrg[idx])
 #            tsCalc.add_entry(float(idx), dataPtsCalc[idx])
 #
@@ -107,7 +107,7 @@ class SymmetricMeanAbsolutePercentageErrorTest(unittest.TestCase):
 #        tsOrg  = TimeSeries()
 #        tsCalc = TimeSeries()
 #
-#        for idx in xrange(len(dataPtsOrg)):
+#        for idx in range(len(dataPtsOrg)):
 #            tsOrg.add_entry(float(idx),  dataPtsOrg[idx])
 #            tsCalc.add_entry(float(idx), dataPtsCalc[idx])
 #

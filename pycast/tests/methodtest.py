@@ -245,7 +245,7 @@ class BaseForecastingMethodTest(unittest.TestCase):
 
     def initialization_exception_test(self):
         """Test BaseForecastingMethod initialization for ValueError."""
-        for valuesToForecast in xrange(-10,0):
+        for valuesToForecast in range(-10,0):
             try:
                 BaseForecastingMethod(valuesToForecast=valuesToForecast)
             except ValueError:
@@ -255,7 +255,7 @@ class BaseForecastingMethodTest(unittest.TestCase):
 
     def forecast_until_test(self):
         """Testing the forecast_until function."""
-        for validts in (xrange(1,100)):
+        for validts in (range(1,100)):
             BaseForecastingMethod(["valuesToForecast"]).forecast_until(validts, tsformat=None)
 
         BaseForecastingMethod(["valuesToForecast"]).forecast_until("2012", tsformat="%Y")
@@ -316,7 +316,7 @@ class SimpleMovingAverageTest(unittest.TestCase):
 
     def initialization_exception_Test(self):
         """Test the exeptions of SimpleMovingAverage's __init__."""
-        for invalidWindowSize in xrange(-5, 1):
+        for invalidWindowSize in range(-5, 1):
             try:
                 SimpleMovingAverage(invalidWindowSize)
             except ValueError:
@@ -324,7 +324,7 @@ class SimpleMovingAverageTest(unittest.TestCase):
             else:
                 assert False    # pragma: no cover
 
-        for invalidWindowSize in xrange(2, 10, 2):
+        for invalidWindowSize in range(2, 10, 2):
             try:
                 SimpleMovingAverage(invalidWindowSize)
             except ValueError:
@@ -627,7 +627,7 @@ class HoltWintersMethodTest(unittest.TestCase):
 
     def season_length_test(self):
         """Test that the season length has to be greater than 0."""
-        for seasonLength in xrange(-4, 1):
+        for seasonLength in range(-4, 1):
             try:
                 HoltWintersMethod(seasonLength=seasonLength)
             except ValueError:
@@ -635,5 +635,5 @@ class HoltWintersMethodTest(unittest.TestCase):
             else:
                 assert False    # pragma: no cover
 
-        for seasonLength in xrange(1,12414, 412):
+        for seasonLength in range(1,12414, 412):
             HoltWintersMethod(seasonLength=seasonLength)

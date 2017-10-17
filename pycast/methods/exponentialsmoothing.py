@@ -99,7 +99,7 @@ class ExponentialSmoothing(BaseForecastingMethod):
         append = resultList.append
 
         # smooth the existing TimeSeries data
-        for idx in xrange(len(timeSeries)):
+        for idx in range(len(timeSeries)):
             # get the current to increase performance
             t = timeSeries[idx]
 
@@ -131,7 +131,7 @@ class ExponentialSmoothing(BaseForecastingMethod):
             currentTime        = resultList[-1][0]
             normalizedTimeDiff = currentTime - resultList[-2][0]
 
-            for idx in xrange(valuesToForecast):
+            for idx in range(valuesToForecast):
                 currentTime += normalizedTimeDiff
 
                 # reuse everything
@@ -229,7 +229,7 @@ class HoltMethod(BaseForecastingMethod):
         append = resultList.append
 
         # smooth the existing TimeSeries data
-        for idx in xrange(len(timeSeries)):
+        for idx in range(len(timeSeries)):
             # get the current to increase performance
             t = timeSeries[idx]
 
@@ -265,7 +265,7 @@ class HoltMethod(BaseForecastingMethod):
             currentTime        = resultList[-1][0]
             normalizedTimeDiff = currentTime - resultList[-2][0]
 
-            for idx in xrange(1, self._parameters["valuesToForecast"] + 1):
+            for idx in range(1, self._parameters["valuesToForecast"] + 1):
                 currentTime += normalizedTimeDiff
 
                 # reuse everything
@@ -371,7 +371,7 @@ class HoltWintersMethod(BaseForecastingMethod):
         resultList = []
         lastEstimator = 0
 
-        for idx in xrange(len(timeSeries)):
+        for idx in range(len(timeSeries)):
             t = timeSeries[idx][0]
             x_t = timeSeries[idx][1]
             if idx == 0:
@@ -413,7 +413,7 @@ class HoltWintersMethod(BaseForecastingMethod):
         currentTime        = smoothedData[-1][0]
         normalizedTimeDiff = currentTime - smoothedData[-2][0]
 
-        for m in xrange(1, self._parameters["valuesToForecast"] + 1):
+        for m in range(1, self._parameters["valuesToForecast"] + 1):
             currentTime += normalizedTimeDiff
             lastSeasonValue = seasonValues[(len(originalTimeSeries) + m - 2) % seasonLength]
             forecast = (lastEstimator + m * lastTrend) * lastSeasonValue
@@ -440,9 +440,9 @@ class HoltWintersMethod(BaseForecastingMethod):
         completeCycles = len(timeSeries) / seasonLength
         A = {} #cache values for A_j
 
-        for i in xrange(seasonLength):
+        for i in range(seasonLength):
             c_i = 0
-            for j in xrange(completeCycles):
+            for j in range(completeCycles):
                 if j not in A:
                     A[j] = self.computeA(j, timeSeries)
                 c_i += timeSeries[(seasonLength * j) + i][1] / A[j] #wikipedia suggests j-1, but we worked with indices in the first place
@@ -462,7 +462,7 @@ class HoltWintersMethod(BaseForecastingMethod):
         result = 0.0
         seasonLength = self.get_parameter("seasonLength")
         k = min(len(timeSeries) - seasonLength, seasonLength) #In case of only one full season, use average trend of the months that we have twice
-        for i in xrange(0, k):
+        for i in range(0, k):
             result += (timeSeries[seasonLength + i][1] - timeSeries[i][1]) / seasonLength
         return result / k
 

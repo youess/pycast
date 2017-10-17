@@ -23,7 +23,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import json
-from pycastobject import PyCastObject
+from .pycastobject import PyCastObject
 
 class PycastEncoder(json.JSONEncoder, PyCastObject):
 

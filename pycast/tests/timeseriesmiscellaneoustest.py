@@ -375,7 +375,7 @@ class TimeSeriesMiscellaneousTest(unittest.TestCase):
 
     def check_normalization_test(self):
         """Check for check_normalization."""
-        dataOK    = zip(xrange(10), [random.random() for i in xrange(10)])
+        dataOK    = zip(range(10), [random.random() for i in range(10)])
         dataNotOK = dataOK[:]
         del dataNotOK[2]
         del dataNotOK[7]

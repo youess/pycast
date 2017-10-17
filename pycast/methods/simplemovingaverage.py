@@ -98,7 +98,7 @@ class SimpleMovingAverage(BaseMethod):
         nbrOfLoopRuns = tsLength - windowsize + 1
 
         res = TimeSeries()
-        for idx in xrange(nbrOfLoopRuns):
+        for idx in range(nbrOfLoopRuns):
             end = idx + windowsize
             data = timeSeries[idx:end]
 

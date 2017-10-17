@@ -82,7 +82,7 @@ class MultiDimensionalTimeSeriesTest(unittest.TestCase):
 
         assert len(data) == len(mdts)
 
-        for idx in xrange(len(data)):
+        for idx in range(len(data)):
             assert [idx] + data[idx] == mdts[idx]
 
     def add_entry_format_test(self):
