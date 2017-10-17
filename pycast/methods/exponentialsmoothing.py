@@ -437,7 +437,7 @@ class HoltWintersMethod(BaseForecastingMethod):
             pass
 
         seasonValues = []
-        completeCycles = len(timeSeries) / seasonLength
+        completeCycles = len(timeSeries) // seasonLength
         A = {} #cache values for A_j
 
         for i in range(seasonLength):
