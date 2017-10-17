@@ -96,11 +96,11 @@ class MeanAbsoluteScaledError(BaseErrorMeasure):
             otherwise based on the minimalErrorCalculationPercentage.
         :rtype: boolean
 
-        :raise:    Raises a :py:exc:`StandardError` if the error measure is initialized multiple times.
+        :raise:    Raises a :py:exc:`Exception` if the error measure is initialized multiple times.
         """
         # ErrorMeasure was already initialized.
         if 0 < len(self._errorValues):
-            raise StandardError("An ErrorMeasure can only be initialized once.")
+            raise Exception("An ErrorMeasure can only be initialized once.")
 
         # calculating the number of datapoints used within the history
         if isinstance(self._historyLength, float):

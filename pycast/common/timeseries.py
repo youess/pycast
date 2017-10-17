@@ -577,12 +577,12 @@ class TimeSeries(PyCastObject):
         :param BaseMethod method: Method that should be used with the TimeSeries.
             For more information about the methods take a look into their corresponding documentation.
 
-        :raise:    Raises a StandardError when the TimeSeries was not normalized and hte method requires a
+        :raise:    Raises a Exception when the TimeSeries was not normalized and hte method requires a
             normalized TimeSeries
         """
         # check, if the methods requirements are fullfilled
         if method.has_to_be_normalized() and not self._normalized:
-            raise StandardError("method requires a normalized TimeSeries instance.")
+            raise Exception("method requires a normalized TimeSeries instance.")
 
         if method.has_to_be_sorted():
             self.sort_timeseries()

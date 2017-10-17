@@ -64,11 +64,11 @@ class BaseErrorMeasure(PyCastObject):
             otherwise based on the minimalErrorCalculationPercentage.
         :rtype: boolean
 
-        :raise:    Raises a :py:exc:`StandardError` if the error measure is initialized multiple times.
+        :raise:    Raises a :py:exc:`Exception` if the error measure is initialized multiple times.
         """
         # ErrorMeasure was already initialized.
         if 0 < len(self._errorValues):
-            raise StandardError("An ErrorMeasure can only be initialized once.")
+            raise Exception("An ErrorMeasure can only be initialized once.")
 
         # sort the TimeSeries to reduce the required comparison operations
         originalTimeSeries.sort_timeseries()
@@ -165,11 +165,11 @@ class BaseErrorMeasure(PyCastObject):
             - endPercentage      not in [0.0, 100.0]
             - endPercentage < startingPercentage
 
-        :raise:    Raises a :py:exc:`StandardError` if :py:meth:`BaseErrorMeasure.initialize` was not successfull before.
+        :raise:    Raises a :py:exc:`Exception` if :py:meth:`BaseErrorMeasure.initialize` was not successfull before.
         """
         # not initialized:
         if len(self._errorValues) == 0:
-            raise StandardError("The last call of initialize(...) was not successfull.")
+            raise Exception("The last call of initialize(...) was not successfull.")
 
         # check for wrong parameters
         if not (0.0 <= startingPercentage <= 100.0):

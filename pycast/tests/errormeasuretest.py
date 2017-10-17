@@ -59,7 +59,7 @@ class BaseErrorMeasureTest(unittest.TestCase):
 
         try:
             bem.get_error()
-        except StandardError:
+        except Exception:
             pass
         else:
             assert False    # pragma: no cover
@@ -90,7 +90,7 @@ class BaseErrorMeasureTest(unittest.TestCase):
         for cnt in range(10):
             try:
                 bem.initialize(tsOrg, tsCalc)
-            except StandardError:
+            except Exception:
                 pass
             else:
                 assert False    # pragma: no cover

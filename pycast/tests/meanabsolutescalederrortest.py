@@ -111,7 +111,7 @@ class MeanAbsoluteScaledErrorTest(unittest.TestCase):
 
         try:
             em.initialize(tsOrg, tsFor)
-        except StandardError:
+        except Exception:
             pass
         else:
             assert False    # pragma: no cover

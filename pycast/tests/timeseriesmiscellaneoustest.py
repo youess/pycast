@@ -352,7 +352,7 @@ class TimeSeriesMiscellaneousTest(unittest.TestCase):
         assert len(ts) > len(tsClone)
 
     def normalized_method_requirement_test(self):
-        """Test for StandardError."""
+        """Test for Exception."""
         def nothing(self):
             return
 
@@ -364,7 +364,7 @@ class TimeSeriesMiscellaneousTest(unittest.TestCase):
 
         try:
             ts.apply(mOne)
-        except StandardError:
+        except Exception:
             pass
         else:
             assert False    # pragma: no cover
